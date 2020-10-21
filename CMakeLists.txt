@@ -10,18 +10,6 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 
-add_message_files(
-  FILES
-  actuation_msg.msg
-)
-
-
-generate_messages(
-  DEPENDENCIES
-  std_msgs
-  mur_common
-)
-
 
 catkin_package()
 
@@ -29,10 +17,6 @@ catkin_package()
 include_directories(${catkin_INCLUDE_DIRS})
 
 
-add_executable(keyboard src/keyboard.cpp)
+add_executable(keyboard mursim_controller/src/keyboard.cpp)
 target_link_libraries(keyboard ${catkin_LIBRARIES})
-
-
-# add_executable(listener src/listener.cpp)
-# target_link_libraries(listener ${catkin_LIBRARIES})
 
