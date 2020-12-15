@@ -72,31 +72,26 @@ int main(int argc, char **argv)
 		key_press.data = getch();              // call your non-blocking input function
 
 		if (key_press.data == 119) {                         // w: forward
+			v = v + 1;
+			steering.data = steer_vec;
 
 			for (int i=0; i<wheel_drive_H; i++)
 				for (int j=0; j<wheel_drive_W; j++)
-					wheel_drive_vec[i*wheel_drive_W+j] = 4;
+					wheel_drive_vec[i*wheel_drive_W+j] = v;
 			wheel_drive.data = wheel_drive_vec;
 			key_wheel_drive.publish(wheel_drive);
 		}
 		else if (key_press.data == 115) {      // s: slower
+			v = v - 1;
+			steering.data = steer_vec;
 
 			for (int i=0; i<wheel_drive_H; i++)
 				for (int j=0; j<wheel_drive_W; j++)
-					wheel_drive_vec[i*wheel_drive_W+j] = -4;
+					wheel_drive_vec[i*wheel_drive_W+j] = v;
 			wheel_drive.data = wheel_drive_vec;
 			key_wheel_drive.publish(wheel_drive);
 		}
-		else {
-			for (int i=0; i<wheel_drive_H; i++)
-				for (int j=0; j<wheel_drive_W; j++)
-					wheel_drive_vec[i*wheel_drive_W+j] = 0;
-			wheel_drive.data = wheel_drive_vec;
-			key_wheel_drive.publish(wheel_drive);
-		}
-
-
-		if ((key_press.data == 97) && (s <= 1)) {       // a: left
+		else if ((key_press.data == 97) && (s <= 1)) {       // a: left
 			s = s + 0.1; 
 			for (int i=0; i<steer_H; i++)
 				for (int j=0; j<steer_W; j++)
